@@ -1,0 +1,8 @@
+Business_Name 1
+Business_Address 1
+Inspection_Start 2
+Inspection_End 2
+Inspection_Closed_Business 3
+Violation_Points 4
+Violation_Red_Points 4
+City 1 
