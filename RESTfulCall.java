@@ -10,8 +10,9 @@ This is specifically directed toward KCLS's public health/restaurant inspection 
 
 import java.util.*;
 import java.io.*;
-
 import java.net.*;
+import javax.xml.parsers.*;
+import org.w3c.dom.*;
 
 public class RESTfulCall{
 
@@ -60,22 +61,44 @@ public class RESTfulCall{
       }
       System.out.println("Connecting to: " + url);
       
+      //String xml = "";
+      URLConnection connection = null;
+      InputStream input = null;
       //finally, get and print out the contents of our query
-      //TODO: format XML file into something more readable
       try{
-         URLConnection connection = (new URL(url)).openConnection();
-         InputStream input = connection.getInputStream();
-         BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+         connection = (new URL(url)).openConnection();
+         input = connection.getInputStream();
          
-         String request;
-         do{
-            request = reader.readLine();
-            System.out.println(request);
-         }while(request != null);
-         
+         //BufferedInputStream stream = new BufferedInputStream(input);
+         //while(stream.available() > 0){
+         //   xml += ((char)stream.read());
+         //}
       }catch(Exception e){
          System.out.println("Connection failed!");
       }
+      //System.out.println(xml);
+      
+      //format xml string into something more usable using java's built in DOM parser
+      //create the document builder
+      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+      DocumentBuilder builder = null;
+      try{
+         builder = factory.newDocumentBuilder();
+      } catch(ParserConfigurationException e){
+         System.out.println("Something went wrong with DocumentBuilder!");
+      }
+      
+      //use document builder to create a nice document object model (DOM)
+      Document document = null;
+      try{
+         //System.out.println(input);
+         document = builder.parse(input);
+      } catch(Exception e){
+         System.out.println("Something went wrong with parsing the xml!");
+         e.printStackTrace();
+      }
+      
+      System.out.println(document.getDocumentElement());
    }
   
 }
