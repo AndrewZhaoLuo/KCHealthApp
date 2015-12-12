@@ -61,22 +61,15 @@ public class RESTfulCall{
       }
       System.out.println("Connecting to: " + url);
       
-      //String xml = "";
+      //gain a connection to the database
       URLConnection connection = null;
       InputStream input = null;
-      //finally, get and print out the contents of our query
       try{
          connection = (new URL(url)).openConnection();
          input = connection.getInputStream();
-         
-         //BufferedInputStream stream = new BufferedInputStream(input);
-         //while(stream.available() > 0){
-         //   xml += ((char)stream.read());
-         //}
       }catch(Exception e){
          System.out.println("Connection failed!");
       }
-      //System.out.println(xml);
       
       //format xml string into something more usable using java's built in DOM parser
       //create the document builder
@@ -88,7 +81,7 @@ public class RESTfulCall{
          System.out.println("Something went wrong with DocumentBuilder!");
       }
       
-      //use document builder to create a nice document object model (DOM)
+      //use document builder to create a nice document object model (DOM) easy to traverse
       Document document = null;
       try{
          //System.out.println(input);
@@ -98,7 +91,17 @@ public class RESTfulCall{
          e.printStackTrace();
       }
       
-      System.out.println(document.getDocumentElement());
+      //TODO: figure out why only all elements have null value
+      System.out.println("First element: " + document.getDocumentElement());
+      NodeList nodes = document.getDocumentElement().getChildNodes();
+      for(int i = 1; i < nodes.getLength(); i++){  //ignore disclaimer node
+         NodeList business = nodes.item(i).getChildNodes();
+         for(int a = 0; a < business.getLength(); a++){
+            Node element = business.item(a);
+            int c = 0;
+         }
+      }
+      
    }
   
 }
