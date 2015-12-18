@@ -91,14 +91,14 @@ public class RESTfulCall{
          e.printStackTrace();
       }
       
-      //TODO: figure out why only all elements have null value
+      //Answer, not stored as an attribute, use getTextContent()
       System.out.println("First element: " + document.getDocumentElement());
       NodeList nodes = document.getDocumentElement().getChildNodes();
       for(int i = 1; i < nodes.getLength(); i++){  //ignore disclaimer node
          NodeList business = nodes.item(i).getChildNodes();
          for(int a = 0; a < business.getLength(); a++){
             Node element = business.item(a);
-            int c = 0;
+            System.out.println(element.getTextContent());
          }
       }
       
